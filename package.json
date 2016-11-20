@@ -4,7 +4,8 @@
   "description": "A Settlers of Catan style game",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --compilers js:babel-register"
+    "test": "mocha --compilers js:babel-register",
+    "test-watch": "mocha --watch --compilers js:babel-register"
   },
   "author": "",
   "license": "ISC",
@@ -14,5 +15,8 @@
     "babel-register": "^6.18.0",
     "chai": "^3.5.0",
     "mocha": "^3.1.2"
+  },
+  "dependencies": {
+    "lodash": "^4.17.2"
   }
 }
