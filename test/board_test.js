@@ -1,5 +1,5 @@
 import { assert } from 'chai'
-import { each } from 'lodash'
+import { find, each, without } from 'lodash'
 import Board from '../src/board'
 
 describe('Board', function() {
@@ -17,8 +17,26 @@ describe('Board', function() {
     it('has proper number of tiles of each type', function() {
       each(Board.TILE_TYPES, (count, type) => {
         let tilesOfType = board.tiles.filter((tile) => tile.type === type)
-        assert.equal(count, tilesOfType.length)
+        assert.equal(tilesOfType.length, count)
       })
+    })
+
+    it('has a chit on each tile', function() {
+      each(board.tiles, (tile) => assert.isNumber(tile.chit))
+    })
+
+    it('desert has chit 7', function() {
+      let desert = find(board.tiles, ['type', 'desert'])
+      assert.equal(desert.chit, 7)
+    })
+
+    it('other chits are distributed properly', function() {
+      let chits = Array.from(Board.CHITS)
+      each(board.tiles, ({chit}) => {
+        let index = chits.indexOf(chit)
+        if (index >= 0) chits.splice(index, 1)
+      })
+      assert.equal(chits.length, 0)
     })
   })
 })

@@ -16,21 +16,17 @@ export default class Board {
 
   generate() {
     let chits = shuffle(Board.CHITS)
+    let nextChit = (type) => type == 'desert' ? 7 : chits.shift()
+
+    // build an array of tiles with randomized chits
     this.tiles = reduce(Board.TILE_TYPES, (tiles, count, type) => {
-      return tiles.concat(Array(count).  fill(null).map(() => new Tile(type)))
+      return tiles.concat(Array(count).fill(null).map(() =>
+        new Tile(type, nextChit(type))
+      ))
     }, [])
   }
 }
 
 Board.RESOURCE_TYPES = ['clay', 'desert', 'grain', 'ore', 'wood', 'wool']
-
-Board.TILE_TYPES = {
-  clay: 3,
-  desert: 1,
-  grain: 4,
-  ore: 3,
-  wood: 4,
-  wool: 4
-}
-
-Board.CHITS = [2, 3, 4, 4, 5, 5, 6, 6, 8, 8, 9, 9, 10, 10, 11, 12]
+Board.TILE_TYPES = { clay: 3, desert: 1, grain: 4, ore: 3, wood: 4, wool: 4 }
+Board.CHITS = [2, 3, 3, 4, 4, 5, 5, 6, 6, 8, 8, 9, 9, 10, 10, 11, 11, 12]
