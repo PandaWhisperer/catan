@@ -15,15 +15,19 @@ export default class Board {
   }
 
   generate() {
+    // shuffle chits and create distribution function
     let chits = shuffle(Board.CHITS)
     let nextChit = (type) => type == 'desert' ? 7 : chits.shift()
 
     // build an array of tiles with randomized chits
-    this.tiles = reduce(Board.TILE_TYPES, (tiles, count, type) => {
+    let tiles = reduce(Board.TILE_TYPES, (tiles, count, type) => {
       return tiles.concat(Array(count).fill(null).map(() =>
         new Tile(type, nextChit(type))
       ))
     }, [])
+
+    // shuffle tiles
+    this.tiles = shuffle(tiles)
   }
 }
 

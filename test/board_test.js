@@ -1,5 +1,5 @@
 import { assert } from 'chai'
-import { find, each, without } from 'lodash'
+import { find, each, map, without } from 'lodash'
 import Board from '../src/board'
 
 describe('Board', function() {
@@ -37,6 +37,15 @@ describe('Board', function() {
         if (index >= 0) chits.splice(index, 1)
       })
       assert.equal(chits.length, 0)
+    })
+
+    it('is randomized', function() {
+      let chits = map(board.tiles, 'chit'),
+          tiles = map(board.tiles, 'type'),
+          otherBoard = new Board()
+
+      assert.notDeepEqual(map(otherBoard.tiles, 'chit'), chits)
+      assert.notDeepEqual(map(otherBoard.tiles, 'type'), tiles)
     })
   })
 })
