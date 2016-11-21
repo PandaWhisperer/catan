@@ -47,5 +47,10 @@ describe('Board', function() {
       assert.notDeepEqual(map(otherBoard.tiles, 'chit'), chits)
       assert.notDeepEqual(map(otherBoard.tiles, 'type'), tiles)
     })
+
+    it('each tile has between 3 and 6 neighbors', function() {
+      map(board.tiles, 'neighbors').forEach((n) =>
+        assert.isAtLeast(n.length, 3) && assert.isAtMost(n.length, 6))
+    })
   })
 })
